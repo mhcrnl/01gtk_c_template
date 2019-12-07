@@ -52,9 +52,9 @@ static void about_show(void)
 }
 //************************************************************************
 static void add_menu   (GtkWidget *wid)
-{   /* MENUBAR */
+{   /** MENUBAR */
     menubar     = gtk_menu_bar_new();
-    /* FILE MENU */
+    /** FILE MENU */
     file_menu   = gtk_menu_new();
     /* FILE ITEMS */
     file        = gtk_menu_item_new_with_label("File");
@@ -89,7 +89,7 @@ static void helloWorld (GtkWidget *wid, GtkWidget *win)
 {
   GtkWidget *dialog = NULL;
 
-  dialog = gtk_message_dialog_new (GTK_WINDOW (win), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE, "Hello World!");
+  dialog = gtk_message_dialog_new (GTK_WINDOW (win), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE, title);
   gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
   gtk_dialog_run (GTK_DIALOG (dialog));
   gtk_widget_destroy (dialog);
