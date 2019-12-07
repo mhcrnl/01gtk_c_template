@@ -14,6 +14,7 @@ const gchar *compile = "cc `pkg-config --cflags --libs gtk+-2.0` main.c -o main 
 GtkWidget *button = NULL;
 GtkWidget *win = NULL;
 GtkWidget *vbox = NULL;
+GdkPixbuf *icon;
 
 /* MENU */
 GtkWidget *menubar      = NULL;
@@ -28,11 +29,23 @@ GtkWidget *help_git = NULL;
 /**********************************************************************
 *   FUNCTIONS:
 ***********************************************************************/
-static void helloWorld (GtkWidget *wid, GtkWidget *win);
-static void add_menu   (GtkWidget *wid);
-static void about_show (void);
-static void bzr_push   (void);
-static void git_push   (void);
+static void helloWorld      (GtkWidget *wid, GtkWidget *win);
+static void add_menu        (GtkWidget *wid);
+static void about_show      (void);
+static void bzr_push        (void);
+static void git_push        (void);
+GdkPixbuf   *create_pixbuf  (const gchar *filename);
+//**********************************************************************
+GdkPixbuf   *create_pixbuf  (const gchar *filename){
+    GdkPixbuf *pixbuf;
+    GError    *error = NULL;
+    pixbuf = gdk_pixbuf_new_from_file(filename, &error);
+    if(!pixbuf){
+        fprintf(stderr, "%s\n", error->message);
+        g_error_free(error);
+    }
+    return pixbuf;
+}
 //***********************************************************************
 static void git_push(void) {
     system("./gitpush.sh");
@@ -110,6 +123,10 @@ int main (int argc, char *argv[])
   gtk_window_set_title (GTK_WINDOW (win), title);
   gtk_window_set_position (GTK_WINDOW (win), GTK_WIN_POS_CENTER);
   gtk_window_set_default_size(GTK_WINDOW(win), 450, 300);
+
+  icon = create_pixbuf("animal-monkey.png");
+  gtk_window_set_icon(GTK_WINDOW(win), icon);
+
   gtk_widget_realize (win);
   g_signal_connect (win, "destroy", gtk_main_quit, NULL);
 
